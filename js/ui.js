@@ -17,7 +17,7 @@ const UI = {
     // Mostra a área do usuário com base no tipo (client/provider)
     showUserArea: (userType) => {
         document.getElementById('home-screen').style.display = 'none';
-        
+
         if (userType === 'provider') {
             document.getElementById('provider-area').style.display = 'block';
             document.getElementById('client-area').style.display = 'none';
@@ -56,9 +56,14 @@ const UI = {
             document.getElementById('service-category').value = service.category;
             form.dataset.serviceId = service.id;
         } else {
-            // Novo serviço
-            form.reset();
-            delete form.dataset.serviceId;
+            // Novo serviço - garantir que os campos estão vazios
+            document.getElementById('service-title').value = '';
+            document.getElementById('service-description').value = '';
+            document.getElementById('service-price').value = '';
+            document.getElementById('service-category').value = 'tecnologia';
+            if (form.dataset.serviceId) {
+                delete form.dataset.serviceId;
+            }
         }
         form.style.display = 'block';
     },
@@ -67,12 +72,12 @@ const UI = {
     renderServicesList: (services) => {
         const container = document.getElementById('services-list');
         container.innerHTML = '';
-        
+
         if (services.length === 0) {
             container.innerHTML = '<p>Nenhum serviço encontrado.</p>';
             return;
         }
-        
+
         services.forEach(service => {
             const card = document.createElement('div');
             card.className = 'service-card';
@@ -92,12 +97,12 @@ const UI = {
     renderProviderServicesList: (services) => {
         const container = document.getElementById('provider-services-list');
         container.innerHTML = '';
-        
+
         if (services.length === 0) {
             container.innerHTML = '<p>Você ainda não cadastrou nenhum serviço.</p>';
             return;
         }
-        
+
         services.forEach(service => {
             const card = document.createElement('div');
             card.className = 'service-card';

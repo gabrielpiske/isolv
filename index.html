@@ -61,7 +61,7 @@
             <button id="add-service-btn">Adicionar Novo Serviço</button>
             <div id="provider-services-list"></div>
 
-            <div id="service-form" style="display: none;">
+            <form id="service-form" style="display: none;">
                 <h3>Adicionar/Editar Serviço</h3>
                 <input type="text" id="service-title" placeholder="Título do serviço">
                 <textarea id="service-description" placeholder="Descrição detalhada"></textarea>
@@ -75,7 +75,7 @@
                 </select>
                 <button id="save-service">Salvar</button>
                 <button id="cancel-service">Cancelar</button>
-            </div>
+            </form>
         </section>
 
         <!-- Área de Contratante de Serviços -->
@@ -95,10 +95,6 @@
             <div id="services-list"></div>
         </section>
     </main>
-
-    <footer>
-        <p>&copy; 2023 Serviços Online</p>
-    </footer>
 
     <script src="js/auth.js"></script>
     <script src="js/database.js"></script>
