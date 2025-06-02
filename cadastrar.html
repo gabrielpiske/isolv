@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastrar Serviços</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="js/firebase-config.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Cadastrar Serviço</h1>
+      <a href="index.html" class="back-button">Voltar</a>
+    </header>
+    
+    <main>
+      <form id="service-form">
+        <div class="form-group">
+          <label for="service-title">Título do Serviço</label>
+          <input type="text" id="service-title" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="service-description">Descrição</label>
+          <textarea id="service-description" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="service-price">Preço (R$)</label>
+          <input type="number" id="service-price" step="0.01" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="provider-name">Seu Nome/Empresa</label>
+          <input type="text" id="provider-name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="contact-info">Contato (WhatsApp/Email)</label>
+          <input type="text" id="contact-info" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="service-category">Categoria</label>
+          <select id="service-category" required>
+            <option value="">Selecione...</option>
+            <option value="tecnologia">Tecnologia</option>
+            <option value="reparos">Reparos</option>
+            <option value="design">Design</option>
+            <option value="educacao">Educação</option>
+            <option value="outros">Outros</option>
+          </select>
+        </div>
+        
+        <button type="submit" class="submit-btn">Cadastrar Serviço</button>
+      </form>
+      
+      <div id="success-message" class="hidden">
+        <h2>Serviço cadastrado com sucesso!</h2>
+        <p>Seu serviço já está disponível para contratação.</p>
+        <a href="contratar.html" class="btn">Ver Serviços</a>
+        <a href="cadastrar.html" class="btn">Cadastrar Outro</a>
+      </div>
+    </main>
+  </div>
+  
+  <script src="js/cadastrar.js"></script>
+</body>
+</html>
