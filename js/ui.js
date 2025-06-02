@@ -69,15 +69,15 @@ const UI = {
     },
 
     // Renderiza a lista de serviços para clientes
-    renderServicesList: (services) => {
+    renderServicesList: function(services) {
         const container = document.getElementById('services-list');
         container.innerHTML = '';
-
+        
         if (services.length === 0) {
             container.innerHTML = '<p>Nenhum serviço encontrado.</p>';
             return;
         }
-
+        
         services.forEach(service => {
             const card = document.createElement('div');
             card.className = 'service-card';
@@ -94,15 +94,15 @@ const UI = {
     },
 
     // Renderiza a lista de serviços para prestadores
-    renderProviderServicesList: (services) => {
+    renderProviderServicesList: function(services) {
         const container = document.getElementById('provider-services-list');
         container.innerHTML = '';
-
+        
         if (services.length === 0) {
             container.innerHTML = '<p>Você ainda não cadastrou nenhum serviço.</p>';
             return;
         }
-
+        
         services.forEach(service => {
             const card = document.createElement('div');
             card.className = 'service-card';
@@ -121,8 +121,8 @@ const UI = {
         });
     },
 
-    // Obtém o nome amigável da categoria
-    getCategoryName: (category) => {
+     // Função auxiliar para obter nome da categoria
+    getCategoryName: function(category) {
         const categories = {
             'tecnologia': 'Tecnologia',
             'reparos': 'Reparos',
