@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços Online</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Serviços Online</h1>
+        <div id="auth-status">
+            <button id="login-btn">Entrar</button>
+            <button id="register-btn">Cadastrar</button>
+            <button id="logout-btn" style="display: none;">Sair</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Tela Inicial -->
+        <section id="home-screen">
+            <h2>O que você deseja fazer?</h2>
+            <div class="options">
+                <button id="offer-service-btn">Oferecer Serviços</button>
+                <button id="hire-service-btn">Contratar Serviços</button>
+            </div>
+        </section>
+
+        <!-- Formulários de Autenticação -->
+        <section id="auth-forms" style="display: none;">
+            <div id="login-form">
+                <h2>Entrar</h2>
+                <input type="email" id="login-email" placeholder="Email">
+                <input type="password" id="login-password" placeholder="Senha">
+                <button id="submit-login">Entrar</button>
+                <button id="cancel-login">Cancelar</button>
+            </div>
+
+            <div id="register-form" style="display: none;">
+                <h2>Cadastrar</h2>
+                <input type="text" id="register-name" placeholder="Nome completo">
+                <input type="email" id="register-email" placeholder="Email">
+                <input type="password" id="register-password" placeholder="Senha">
+                <select id="user-type">
+                    <option value="client">Quero contratar serviços</option>
+                    <option value="provider">Quero oferecer serviços</option>
+                </select>
+                <button id="submit-register">Cadastrar</button>
+                <button id="cancel-register">Cancelar</button>
+            </div>
+        </section>
+
+        <!-- Área de Prestador de Serviços -->
+        <section id="provider-area" style="display: none;">
+            <h2>Seus Serviços</h2>
+            <button id="add-service-btn">Adicionar Novo Serviço</button>
+            <div id="provider-services-list"></div>
+
+            <div id="service-form" style="display: none;">
+                <h3>Adicionar/Editar Serviço</h3>
+                <input type="text" id="service-title" placeholder="Título do serviço">
+                <textarea id="service-description" placeholder="Descrição detalhada"></textarea>
+                <input type="number" id="service-price" placeholder="Preço (R$)">
+                <select id="service-category">
+                    <option value="tecnologia">Tecnologia</option>
+                    <option value="reparos">Reparos</option>
+                    <option value="design">Design</option>
+                    <option value="educacao">Educação</option>
+                    <option value="outros">Outros</option>
+                </select>
+                <button id="save-service">Salvar</button>
+                <button id="cancel-service">Cancelar</button>
+            </div>
+        </section>
+
+        <!-- Área de Contratante de Serviços -->
+        <section id="client-area" style="display: none;">
+            <h2>Serviços Disponíveis</h2>
+            <div class="filters">
+                <select id="category-filter">
+                    <option value="all">Todas as categorias</option>
+                    <option value="tecnologia">Tecnologia</option>
+                    <option value="reparos">Reparos</option>
+                    <option value="design">Design</option>
+                    <option value="educacao">Educação</option>
+                    <option value="outros">Outros</option>
+                </select>
+                <input type="text" id="search-box" placeholder="Pesquisar serviços...">
+            </div>
+            <div id="services-list"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Serviços Online</p>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/database.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
