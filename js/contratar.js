@@ -1,18 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const servicesContainer = document.getElementById('services-container');
+  const servicesGrid = document.getElementById('services-grid');
   const categoryFilter = document.getElementById('category-filter');
-  const searchBox = document.getElementById('search-box');
+  const searchInput = document.getElementById('search-input');
+  const searchBtn = document.getElementById('search-btn');
   
-  // Função para carregar serviços
   const loadServices = async (category = 'all', searchTerm = '') => {
+    servicesGrid.innerHTML = `
+      <div class="loading-spinner">
+        <div class="spinner">⏳</div>
+        <p>Carregando serviços...</p>
+      </div>
+    `;
+    
     try {
-      let query = db.collection('services').where('status', '==', 'available');
-      
-      const snapshot = await query.get();
-      servicesContainer.innerHTML = '';
+      const snapshot = await db.collection('services')
+        .where('status', '==', 'available')
+        .get();
       
       if (snapshot.empty) {
-        servicesContainer.innerHTML = '<p>Nenhum serviço disponível no momento.</p>';
+        servicesGrid.innerHTML = '<p>Nenhum serviço disponível.</p>';
         return;
       }
       
@@ -32,56 +38,51 @@ document.addEventListener('DOMContentLoaded', () => {
         return matchesCategory && matchesSearch;
       });
       
+      // Exibir resultados
+      servicesGrid.innerHTML = '';
       if (services.length === 0) {
-        servicesContainer.innerHTML = '<p>Nenhum serviço encontrado com os filtros selecionados.</p>';
+        servicesGrid.innerHTML = '<p>Nenhum resultado encontrado.</p>';
         return;
       }
       
-      // Ordenar por data mais recente
-      services.sort((a, b) => b.createdAt?.seconds - a.createdAt?.seconds);
-      
-      // Exibir serviços
       services.forEach(service => {
-        const serviceCard = document.createElement('div');
-        serviceCard.className = 'service-card';
-        serviceCard.innerHTML = `
-          <span class="category">${getCategoryName(service.category)}</span>
+        const card = document.createElement('div');
+        card.className = 'service-card';
+        card.innerHTML = `
+          <span class="service-category">${getCategoryName(service.category)}</span>
           <h3>${service.title}</h3>
           <p>${service.description}</p>
-          <p class="price">R$ ${service.price.toFixed(2).replace('.', ',')}</p>
-          <p class="provider">${service.providerName}</p>
-          <p class="contact">Contato: ${service.contactInfo}</p>
+          <p class="service-price">R$ ${service.price.toFixed(2).replace('.', ',')}</p>
+          <p><strong>${service.providerName}</strong></p>
+          <p class="service-contact">Contato: ${service.contactInfo}</p>
         `;
-        servicesContainer.appendChild(serviceCard);
+        servicesGrid.appendChild(card);
       });
       
     } catch (error) {
-      console.error('Erro ao carregar serviços:', error);
-      servicesContainer.innerHTML = '<p>Ocorreu um erro ao carregar os serviços.</p>';
+      console.error('Erro ao carregar:', error);
+      servicesGrid.innerHTML = '<p>Erro ao carregar serviços.</p>';
     }
   };
   
-  // Função auxiliar para nome de categoria
   const getCategoryName = (category) => {
     const categories = {
       'tecnologia': 'Tecnologia',
-      'reparos': 'Reparos',
       'design': 'Design',
-      'educacao': 'Educação',
+      'reparos': 'Reparos',
+      'consultoria': 'Consultoria',
       'outros': 'Outros'
     };
     return categories[category] || category;
   };
   
-  // Event listeners para filtros
-  categoryFilter.addEventListener('change', () => {
-    loadServices(categoryFilter.value, searchBox.value);
+  // Event listeners
+  categoryFilter.addEventListener('change', () => loadServices(categoryFilter.value, searchInput.value));
+  searchBtn.addEventListener('click', () => loadServices(categoryFilter.value, searchInput.value));
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') loadServices(categoryFilter.value, searchInput.value);
   });
   
-  searchBox.addEventListener('input', () => {
-    loadServices(categoryFilter.value, searchBox.value);
-  });
-  
-  // Carregar serviços inicialmente
+  // Carregar inicialmente
   loadServices();
 });

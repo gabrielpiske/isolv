@@ -3,35 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contratar Serviços</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Contratar Serviços | isolv</title>
+  <link rel="stylesheet" href="css/isolv.css">
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
   <script src="js/firebase-config.js"></script>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Serviços Disponíveis</h1>
-      <a href="index.html" class="back-button">Voltar</a>
+  <div class="isolv-container">
+    <header class="isolv-subheader">
+      <a href="index.html" class="back-link">← Voltar</a>
+      <div class="search-header">
+        <h1>Encontre profissionais</h1>
+        <p>Filtre por categoria ou palavra-chave</p>
+      </div>
     </header>
     
     <main>
-      <div class="filters">
-        <select id="category-filter">
-          <option value="all">Todas Categorias</option>
-          <option value="tecnologia">Tecnologia</option>
-          <option value="reparos">Reparos</option>
-          <option value="design">Design</option>
-          <option value="educacao">Educação</option>
-          <option value="outros">Outros</option>
-        </select>
+      <div class="isolv-filters">
+        <div class="filter-group">
+          <select id="category-filter">
+            <option value="all">Todas categorias</option>
+            <option value="tecnologia">Tecnologia</option>
+            <option value="design">Design</option>
+            <option value="reparos">Reparos</option>
+            <option value="consultoria">Consultoria</option>
+          </select>
+        </div>
         
-        <input type="text" id="search-box" placeholder="Pesquisar serviços...">
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="Digite sua busca...">
+          <button id="search-btn">🔍</button>
+        </div>
       </div>
       
-      <div id="services-container">
-        <!-- Os serviços serão carregados aqui via JavaScript -->
+      <div id="services-grid" class="isolv-grid">
+        <div class="loading-spinner">
+          <div class="spinner">⏳</div>
+          <p>Carregando serviços...</p>
+        </div>
       </div>
     </main>
   </div>
